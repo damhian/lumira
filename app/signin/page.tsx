@@ -1,13 +1,16 @@
 "use client";
 
 import { createClient } from "@/lib/client";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 export default function SigninPage() {
   const [isSignUp, setIsSignup] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [message, setMessage] = useState("");
   const supabase = createClient();
+  const router = useRouter();
 
   async function handleAuth(e: React.FormEvent) {
     e.preventDefault();
@@ -16,13 +19,21 @@ export default function SigninPage() {
         const { error } = await supabase.auth.signUp({ email, password });
 
         if (error) throw error;
+        setMessage("Check your email for the confirmation link!");
       } else {
+        const { error } = await supabase.auth.signInWithPassword({
+          email,
+          password,
+        });
+
+        if (error) throw error;
+        router.push("/dashboard");
       }
     } catch {}
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center py-12px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-gradient-to-br from-sky-600 to-indigo-300 flex items-center justify-center py-12px-4 sm:px-6 lg:px-8">
       <div className="max-w-md w-full space-y-8">
         <div className="text-center">
           <h1 className="text-4ont-bold text-gray-900 mb-2">
@@ -35,6 +46,11 @@ export default function SigninPage() {
 
         <div className="bg-white rounded-lg shadow-lg p-8">
           <form className="space-y-6" onSubmit={handleAuth}>
+            {message && (
+              <div className="bg-green-50 border border-green-200 rounded-md p-4">
+                <p className="text-sm text-green-600">Message: {message}</p>
+              </div>
+            )}
             <div>
               <label
                 htmlFor="email"
