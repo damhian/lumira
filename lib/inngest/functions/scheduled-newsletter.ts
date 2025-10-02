@@ -47,5 +47,6 @@ export default inngest.createFunction(
     });
 
     console.log(summary.choices[0].message?.content);
+    return {};
   },
 );

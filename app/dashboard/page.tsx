@@ -1,6 +1,10 @@
+"use client";
+
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 export default function Dashboard() {
+  const router = useRouter();
   return (
     <div>
       <div>
@@ -25,7 +29,7 @@ export default function Dashboard() {
           <div>
             <h2>Actions</h2>
             <div>
-              <button>
+              <button onClick={() => router.push("/select")}>
                 <svg
                   className="w-5 h-5 mr-2"
                   fill="none"
