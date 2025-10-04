@@ -1,6 +1,3 @@
-import { err } from "inngest/types";
-import { url } from "inspector";
-
 export async function fetchArticles(
   categories: string[],
 ): Promise<Array<{ title: string; url: string; category: string }>> {
