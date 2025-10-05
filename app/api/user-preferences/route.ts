@@ -1,9 +1,11 @@
 import { inngest } from "@/lib/inngest/client";
 import { createClient } from "@/lib/server";
 import { NextRequest, NextResponse } from "next/server";
+import { generateToken } from "@/lib/utils/token";
 
 export async function POST(request: NextRequest) {
   const supabase = await createClient();
+  const unsubscribe_token = generateToken();
 
   const {
     data: { user },
@@ -40,6 +42,7 @@ export async function POST(request: NextRequest) {
       frequency,
       email,
       is_active: true,
+      unsubscribe_token,
     },
     { onConflict: "user_id" },
   );
@@ -59,6 +62,7 @@ export async function POST(request: NextRequest) {
       email,
       frequency,
       userId: user.id,
+      unsubscribe_token,
     },
   });
 
@@ -143,7 +147,7 @@ export async function PATCH(request: NextRequest) {
     } else {
       const { data: preferences, error } = await supabase
         .from("user_preferences")
-        .select("categories, frequency, email")
+        .select("categories, frequency, email, unsubscribe_token")
         .eq("user_id", user.id)
         .single();
 
@@ -170,6 +174,16 @@ export async function PATCH(request: NextRequest) {
 
       nextScheduleTime.setHours(9, 0, 0, 0);
 
+      let unsubscribeToken = preferences.unsubscribe_token;
+      if (!unsubscribeToken) {
+        unsubscribeToken = generateToken();
+
+        await supabase
+          .from("user_preferences")
+          .update({ unsubscribe_token: unsubscribeToken })
+          .eq("user_id", user.id);
+      }
+
       await inngest.send({
         name: "newsletter.schedule",
         data: {
@@ -178,6 +192,7 @@ export async function PATCH(request: NextRequest) {
           frequency: preferences.frequency,
           userId: user.id,
           scheduledFor: nextScheduleTime.toISOString(),
+          unsubscribe_token: unsubscribeToken,
         },
         ts: nextScheduleTime.getTime(),
       });

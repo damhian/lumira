@@ -102,6 +102,7 @@ export default inngest.createFunction(
       }
 
       const htmlResult = await marked(newsletterContent);
+      const unsubscribe_token = event.data.unsubscribe_token;
 
       await step.run("send-email", async () => {
         await sendEmail(
@@ -109,6 +110,7 @@ export default inngest.createFunction(
           event.data.categories.join(", "),
           allArticles.length,
           htmlResult,
+          unsubscribe_token,
         );
       });
 
@@ -144,6 +146,7 @@ export default inngest.createFunction(
             frequency: event.data.frequency,
             userId: event.data.userId,
             scheduledFor: nextScheduleTime.toISOString(),
+            unsubscribe_token,
           },
           ts: nextScheduleTime.getTime(),
         });

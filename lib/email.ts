@@ -5,6 +5,7 @@ export async function sendEmail(
   categories: string,
   article_count: number,
   newsletter_content: string,
+  unsubscribe_token: string,
 ) {
   const templateParams = {
     email,
@@ -12,6 +13,7 @@ export async function sendEmail(
     article_count,
     current_date: new Date().toLocaleDateString(),
     newsletter_content,
+    unsubscribe_token,
   };
 
   const serviceId = process.env.EMAILJS_SERVICE_ID;
