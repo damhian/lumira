@@ -71,6 +71,8 @@ export default function SelectPage() {
   const { user } = useAuth();
   const router = useRouter();
 
+  console.log("selected Categories: ", selectedCategories);
+
   function handleCategoryToggle(categoryId: string) {
     setSelectedCategories((prev) =>
       prev.includes(categoryId)
@@ -124,74 +126,76 @@ export default function SelectPage() {
           <h1 className="text-3xl font-bold text-gray-900 mb-4">
             Customize Your Newsletter
           </h1>
-          <p className="text-xl text-gray-600">
+          <p className="text-xl text-gray-300">
             Select your interests and delivery frequency to start receiving
             personalized newsletters
           </p>
         </div>
         <form onSubmit={handleSavePreferences}>
           {/* Category */}
-          <div>
-            <h2 className="text-2xl font-semibold text-gray-900 mb-4">
-              Choose Your Categories
-            </h2>
-            <p className="text-gray-600 mb-6">
-              Select the topics you'd like to see in your personalized
-              newsletter
-            </p>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
-              {categories.map((category, key) => (
-                <label
-                  key={key}
-                  className={`relative flex items-center p-4 border-2 rounded-lg cursor-pointer transition-all hover:shadow-md ${
-                    selectedCategories.includes(category.id)
-                      ? "border-blue-500 bg-blue-50"
-                      : "border-gray-200 hover:border-gray-300"
-                  }`}>
-                  <input
-                    type="checkbox"
-                    name="category"
-                    className="sr-only"
-                    checked={selectedCategories.includes(category.id)}
-                    onChange={() => handleCategoryToggle(category.id)}
-                  />
-                  <div className="flex items-center h-5">
-                    <div
-                      className={`w-5 h-5 border-2 rounded flex items-center justify-center ${
-                        selectedCategories.includes(category.id)
-                          ? "border-blue-500 bg-blue-500"
-                          : "border-gray-300"
-                      }`}>
-                      {selectedCategories.includes(category.id) && (
-                        <svg
-                          className="w-3 h-3 text-white"
-                          fill="currentColor"
-                          viewBox="0 0 20 20">
-                          <path
-                            fillRule="evenodd"
-                            d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                            clipRule="evenodd"
-                          />
-                        </svg>
-                      )}
-                    </div>
-                  </div>
-                  <div className="ml-3">
-                    <div className="text-sm font-medium text-gray-900">
-                      {category.name}
-                    </div>
-                    <div className="text-sm text-gray-500">
-                      {category.description}
-                    </div>
-                  </div>
-                </label>
-              ))}
-            </div>
-
+          <div className="bg-gray-100 rounded-lg shadow-lg p-6 mb-8">
             <div>
-              {selectedCategories.length} categor
-              {selectedCategories.length !== 1 ? "ies" : "y"} selected
+              <h2 className="text-2xl font-semibold text-gray-900 mb-4">
+                Choose Your Categories
+              </h2>
+              <p className="text-gray-600 mb-6">
+                Select the topics you'd like to see in your personalized
+                newsletter
+              </p>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+                {categories.map((category, key) => (
+                  <label
+                    key={key}
+                    className={`relative flex items-center p-4 border-2 rounded-lg cursor-pointer transition-all hover:shadow-md ${
+                      selectedCategories.includes(category.id)
+                        ? "border-blue-500 bg-blue-50"
+                        : "border-gray-200 hover:border-gray-300"
+                    }`}>
+                    <input
+                      type="checkbox"
+                      name="category"
+                      className="sr-only"
+                      checked={selectedCategories.includes(category.id)}
+                      onChange={() => handleCategoryToggle(category.id)}
+                    />
+                    <div className="flex items-center h-5">
+                      <div
+                        className={`w-5 h-5 border-2 rounded flex items-center justify-center ${
+                          selectedCategories.includes(category.id)
+                            ? "border-blue-500 bg-blue-500"
+                            : "border-gray-300"
+                        }`}>
+                        {selectedCategories.includes(category.id) && (
+                          <svg
+                            className="w-3 h-3 text-white"
+                            fill="currentColor"
+                            viewBox="0 0 20 20">
+                            <path
+                              fillRule="evenodd"
+                              d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                              clipRule="evenodd"
+                            />
+                          </svg>
+                        )}
+                      </div>
+                    </div>
+                    <div className="ml-3">
+                      <div className="text-sm font-medium text-gray-900">
+                        {category.name}
+                      </div>
+                      <div className="text-sm text-gray-500">
+                        {category.description}
+                      </div>
+                    </div>
+                  </label>
+                ))}
+              </div>
+
+              <div className="text-gray-500">
+                {selectedCategories.length} categor
+                {selectedCategories.length !== 1 ? "ies" : "y"} selected
+              </div>
             </div>
           </div>
 
@@ -200,7 +204,7 @@ export default function SelectPage() {
             <h2 className="text-2xl font-semibold text-gray-900 mb-4">
               Delivery Frequency
             </h2>
-            <p className="text-gray-600 mb-6">
+            <p className="text-gray-200 mb-6">
               How often would you like to receive your newsletter
             </p>
 
