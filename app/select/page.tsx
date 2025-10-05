@@ -112,7 +112,7 @@ export default function SelectPage() {
       );
 
       router.push("/dashboard");
-    } catch (error) {
+    } catch {
       alert("Failed to save preferences. Please try again.");
     }
   }
