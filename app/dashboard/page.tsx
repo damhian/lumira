@@ -57,9 +57,16 @@ export default function DashboardPage() {
           <h1 className="text-3xl font-bold text-gray-900 mb-4">
             Your Newsletter Dashboard
           </h1>
-          <p className="text-xl text-gray-600">
-            Manage your personalized newsletter preferences
-          </p>
+
+          <div className="animate-pulse">
+            <p className="text-xl text-gray-50">
+              Manage your personalized newsletter preferences
+            </p>
+            <p className="text-gray-50">
+              With a few click on here you can get personalized newsletter
+              directly send to your email
+            </p>
+          </div>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
@@ -202,6 +209,28 @@ export default function DashboardPage() {
               )}
             </div>
           </div>
+        </div>
+
+        {/* Information */}
+        <div className="mt-8 bg-blue-50 rounded-lg p-6">
+          <h3 className="text-lg font-medium text-blue-900 mb-2">
+            How it works
+          </h3>
+          <ul className="text-blue-800 space-y-1">
+            <li>
+              • Your newsletter is automatically generated based on your
+              selected categories
+            </li>
+            <li>
+              • Newsletters are delivered to your email at 9 AM according to
+              your chosen frequency
+            </li>
+            <li>• You can pause or resume your newsletter at any time</li>
+            <li>
+              • Update your preferences anytime to change categories or
+              frequency
+            </li>
+          </ul>
         </div>
       </div>
     </div>
