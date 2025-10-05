@@ -74,7 +74,7 @@ export default function DashboardPage() {
                     Categories
                   </h3>
                   <div className="flex flex-wrap gap-2">
-                    {preferences.categories.map((category, key) => (
+                    {preferences.categories?.map((category, key) => (
                       <span
                         key={key}
                         className="px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm font-medium">
