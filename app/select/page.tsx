@@ -60,7 +60,7 @@ const frequecyOptions = [
   },
   {
     id: "biweekly",
-    name: "Bi-Weekly",
+    name: "Bi-weekly",
     description: "Receive the newsletter twice a weeks",
   },
 ];
@@ -70,8 +70,6 @@ export default function SelectPage() {
   const [selectedFrequency, setSelectedFrequency] = useState<string>("weekly");
   const { user } = useAuth();
   const router = useRouter();
-
-  console.log("selected Categories: ", selectedCategories);
 
   function handleCategoryToggle(categoryId: string) {
     setSelectedCategories((prev) =>
@@ -213,7 +211,7 @@ export default function SelectPage() {
                 <label
                   key={key}
                   className={`relative flex items-center p-4 border-2 rounded-lg cursor-pointer transition-all hover:shadow-md ${
-                    selectedFrequency.includes(frequency.id)
+                    selectedFrequency === frequency.id
                       ? "border-blue-500 bg-blue-50"
                       : "border-gray-200 hover:border-gray-300"
                   }`}>
