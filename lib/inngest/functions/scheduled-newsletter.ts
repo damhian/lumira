@@ -130,9 +130,14 @@ export default inngest.createFunction(
           email: event.data.email,
           frequency: event.data.frequency,
           userId: event.data.userId,
+          scheduledFor: nextScheduleTime.toISOString(),
         },
         ts: nextScheduleTime.getTime(),
       });
+
+      console.log(
+        `Next newsletter scheduled for: ${nextScheduleTime.toISOString()}`,
+      );
     });
 
     return {
