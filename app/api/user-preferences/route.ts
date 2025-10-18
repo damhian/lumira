@@ -1,5 +1,5 @@
 import { inngest } from "@/lib/inngest/client";
-import { createClient } from "@/lib/server";
+import { createClient } from "@/lib/supabase/server";
 import { NextRequest, NextResponse } from "next/server";
 import { generateToken } from "@/lib/utils/token";
 

@@ -1,8 +1,8 @@
-import { createClient } from "@/lib/server";
-import { NextResponse } from "next/server";
+import { createServiceClient } from "@/lib/supabase/service";
+import { NextRequest, NextResponse } from "next/server";
 
-export async function GET(request: Request) {
-  const supabase = await createClient();
+export async function GET(request: NextRequest) {
+  const supabase = await createServiceClient();
   const { searchParams } = new URL(request.url);
   const token = searchParams.get("token");
 

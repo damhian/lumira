@@ -2,7 +2,7 @@ import { fetchArticles } from "@/lib/news";
 import { inngest } from "../client";
 import { marked } from "marked";
 import { sendEmail } from "@/lib/email";
-import { createClient } from "@/lib/server";
+import { createClient } from "@/lib/supabase/server";
 
 export default inngest.createFunction(
   {
